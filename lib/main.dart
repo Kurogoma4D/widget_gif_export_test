@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, watch) {
+    final encoded = watch(encodedImageProvider).state;
     return Scaffold(
       appBar: AppBar(title: Text('GIF export test')),
       body: Column(
@@ -47,6 +48,11 @@ class HomePage extends StatelessWidget {
                   onPressed: () =>
                       context.read(animationManagerProvider).onExport(),
                 ),
+                if (encoded.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Expanded(child: Image.memory(encoded)),
+                  const SizedBox(height: 16),
+                ],
               ],
             ),
           )
@@ -55,8 +61,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-// TODO: Riverpodでマネージャークラス作る エクスポートボタンのonPressed
-// TODO: マネージャークラスにRepaintBoundaryで使うキーとImage保存用のリストを保持する
-// TODO: ボタンを押すとAnimaionControllerで再生→キャプチャをする
-// TODO: 最終的に何らかの手段でprintする Imageとして出せる？

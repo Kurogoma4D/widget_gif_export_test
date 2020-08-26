@@ -26,6 +26,7 @@ class _SampleAnimationState extends State<SampleAnimation>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => RepaintBoundary(
+        key: context.read(animationManagerProvider).repaintBoundaryKey,
         child: CustomPaint(
           size: constraints.biggest,
           willChange: true,
@@ -54,7 +55,7 @@ class SamplePainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..color = Color(0xff242424);
-    final origin = Offset(size.width / 4, size.height / 6);
+    final origin = Offset(0, 0);
     final triangle = Path()
       ..moveTo(origin.dx, origin.dy)
       ..relativeLineTo(20, 40)

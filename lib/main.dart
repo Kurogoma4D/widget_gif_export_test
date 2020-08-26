@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:widgetgifexporttest/action_button.dart';
+import 'package:widgetgifexporttest/animation_manager.dart';
 import 'package:widgetgifexporttest/sample_animation.dart';
 
 void main() {
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.5,
             child: const SampleAnimation(),
           ),
           Expanded(
@@ -43,7 +44,8 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ActionButton(
                   label: 'EXPORT',
-                  onPressed: () {},
+                  onPressed: () =>
+                      context.read(animationManagerProvider).onExport(),
                 ),
               ],
             ),

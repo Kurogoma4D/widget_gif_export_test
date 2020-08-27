@@ -27,6 +27,7 @@ dependencies:
   image: ^2.1.12
   riverpod: ^0.7.0
   flutter_riverpod: ^0.7.2
+  path_provider:
 
 dev_dependencies:
   flutter_test:

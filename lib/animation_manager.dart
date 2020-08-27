@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/animation.dart';
@@ -5,9 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image/image.dart' as image;
+import 'package:path_provider/path_provider.dart';
 
 final imageStore = StateProvider<List<ui.Image>>((_) => []);
-final encodedImageProvider = StateProvider<List<int>>((_) => []);
+final gifImageProvider = StateProvider<List<int>>((_) => []);
 final animationManagerProvider = Provider((ref) => AnimationManager(ref));
 
 class AnimationManager {
@@ -54,7 +56,16 @@ class AnimationManager {
       encoder.addFrame(translatedImage);
     }
 
-    ref.read(encodedImageProvider).state = encoder.finish();
+    final encoded = encoder.finish();
+    saveToLocal(encoded);
+    ref.read(gifImageProvider).state = encoded;
+  }
+
+  void saveToLocal(List<int> bytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/exported.gif');
+    await file.writeAsBytes(bytes);
+    print('completed ${file.path}');
   }
 
   void dispose() {

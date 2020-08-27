@@ -28,7 +28,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, watch) {
-    final encoded = watch(encodedImageProvider).state;
+    final gifImage = watch(gifImageProvider).state;
     return Scaffold(
       appBar: AppBar(title: Text('GIF export test')),
       body: Column(
@@ -48,9 +48,9 @@ class HomePage extends ConsumerWidget {
                   onPressed: () =>
                       context.read(animationManagerProvider).onExport(),
                 ),
-                if (encoded.isNotEmpty) ...[
+                if (gifImage.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  Expanded(child: Image.memory(encoded)),
+                  Expanded(child: Image.memory(gifImage)),
                   const SizedBox(height: 16),
                 ],
               ],

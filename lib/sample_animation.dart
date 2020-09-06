@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:widgetgifexporttest/animation_manager.dart';
 
@@ -61,6 +62,9 @@ class SamplePainter extends CustomPainter {
       ..relativeLineTo(20, 40)
       ..relativeLineTo(-40, 0)
       ..close();
+
+    final background = Paint()..color = Colors.white;
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), background);
 
     canvas.save();
     canvas.translate(size.width / 2, size.height / 2);

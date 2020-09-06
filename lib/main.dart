@@ -31,32 +31,36 @@ class HomePage extends ConsumerWidget {
     final gifImage = watch(gifImageProvider).state;
     return Scaffold(
       appBar: AppBar(title: Text('GIF export test')),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: const SampleAnimation(),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(height: 16),
-                ActionButton(
-                  label: 'EXPORT',
-                  onPressed: () =>
-                      context.read(animationManagerProvider).onExport(),
-                ),
-                if (gifImage.isNotEmpty) ...[
-                  const SizedBox(height: 16),
-                  Expanded(child: Image.memory(gifImage)),
-                  const SizedBox(height: 16),
-                ],
-              ],
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+//            height: MediaQuery.of(context).size.height * 0.5,
+              height: 200,
+              width: 200,
+              child: const SampleAnimation(),
             ),
-          )
-        ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  ActionButton(
+                    label: 'EXPORT',
+                    onPressed: () =>
+                        context.read(animationManagerProvider).onExport(),
+                  ),
+                  if (gifImage.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Expanded(child: Image.memory(gifImage)),
+                    const SizedBox(height: 16),
+                  ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

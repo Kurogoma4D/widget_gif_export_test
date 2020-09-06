@@ -54,8 +54,7 @@ class AnimationManager {
       final translatedImage = image.Image.fromBytes(
         original.width,
         original.height,
-        imageBytes.buffer.asUint32List().toList(),
-        channels: image.Channels.rgb,
+        imageBytes.buffer.asUint8List().toList(),
       );
 
       animation.addFrame(translatedImage);

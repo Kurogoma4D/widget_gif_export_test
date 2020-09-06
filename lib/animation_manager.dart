@@ -42,21 +42,26 @@ class AnimationManager {
   }
 
   void encodeGif() async {
+    ref.read(gifImageProvider).state = [];
+
     final encoder = image.GifEncoder();
+    final animation = image.Animation();
 
     final images = ref.read(imageStore).state;
     for (final original in images) {
       final imageBytes = await original.toByteData();
+
       final translatedImage = image.Image.fromBytes(
         original.width,
         original.height,
         imageBytes.buffer.asUint32List().toList(),
+        channels: image.Channels.rgb,
       );
 
-      encoder.addFrame(translatedImage);
+      animation.addFrame(translatedImage);
     }
 
-    final encoded = encoder.finish();
+    final encoded = encoder.encodeAnimation(animation);
     saveToLocal(encoded);
     ref.read(gifImageProvider).state = encoded;
   }
